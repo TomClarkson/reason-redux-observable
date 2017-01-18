@@ -20,7 +20,8 @@ import 'rxjs/add/observable/dom/ajax';
 class App extends Component {
 	state = {
 		loading: false,
-		users: []
+		users: [],
+		error: false
 	};
 	componentDidMount() {
 		const searchInput = document.querySelector('#searchInput');
@@ -31,16 +32,25 @@ class App extends Component {
 			// Only pass through values with 3 or more characters
 			.filter(value => value.length > 2)
 			// Could have pressed up or down
-			// only emit when the value has changed
+			// Therefore, only emit when the value has changed
 			.distinctUntilChanged()
 			// Only emit when there has been 500ms of silence
 			.debounceTime(500)
 			// switch unsubscribes from all but latest emitted item
-			// switchMap only emits inner observable's emitted items
+			// switchMap only emits inner observable's emitted items (Which we need because we return an observable)
 			.switchMap(value => {
-				this.setState({loading: true});
+				this.setState({error: false, loading: true});
 				return Observable
 					.ajax(`https://api.github.com/search/users?q=${value}`)
+					.retry(2)
+					.catch(() => {
+						this.setState({error: true, loading: false});
+						return Observable.of({
+							response: {
+								items: []
+							}
+						});
+					})
 					.do(() => this.setState({loading: false}))
 					.map(({response}) => response.items.slice(0, 5))
 			})
@@ -50,13 +60,16 @@ class App extends Component {
 			})
 	}
 	render() {
-		var { loading, users } = this.state;
+		var { loading, users, error } = this.state;
 		return (
 			<div>
 				<h1>Github autocomplete</h1>
 				<input id="searchInput" defaultValue="" />
 				{loading &&
 					<h4>Loading...</h4>
+				}
+				{error &&
+					<h6 style={{color: 'red'}}>Search Failed</h6>
 				}
 				<div>
 					{users.map(u =>
