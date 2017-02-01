@@ -1,5 +1,6 @@
+import './verticalCalendar/Root';
 // import './autocomplete';
-import './mousesUntilRelease';
+// import './mousesUntilRelease';
 // import './dragdrop';
 // import './understandSubscriptions';
 // import './multipleclick';
@@ -52,4 +53,3 @@ import './mousesUntilRelease';
 
 // store.subscribe(renderApp);
 // renderApp();
-

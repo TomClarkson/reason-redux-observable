@@ -40,12 +40,12 @@ var movesUntilRelease = ({preventDefault = true} = {}) => {
             return tm.targetTouches[0];
         })
 
-    var dragEnd$ = Observable.merge(mouseUp$, touchEnd$);
+    var releaseEvents$ = Observable.merge(mouseUp$, touchEnd$);
 
     var moves$ = Observable.merge(mouseMoves$, touchMoves$)
-    	.takeUntil(dragEnd$)
+    	.takeUntil(releaseEvents$)
 
-    var release$ = dragEnd$
+    var release$ = releaseEvents$
     	.take(1);
 
     return {
