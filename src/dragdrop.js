@@ -19,7 +19,7 @@ import 'rxjs/add/observable/dom/ajax';
 
 // show subscription declarative/imperative unsubscribe
 
-class App extends Component {
+export default class DragDrop extends Component {
 	state = {
 		top: 100,
 		left: 100
@@ -74,8 +74,6 @@ class App extends Component {
 		);
 	}
 }
-
-render(<App />, document.querySelector('#root'));
 
 
 

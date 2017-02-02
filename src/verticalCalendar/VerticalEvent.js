@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import EditEventModal from './EditEventModal';
-// import visualizeRender from 'react-render-visualizer-decorator';
+import visualizeRender from 'react-render-visualizer-decorator';
 
 var makeMapStateToProps = (initialState, initialProps) => {
 	var { id } = initialProps;
@@ -32,7 +32,6 @@ var makeMapStateToProps = (initialState, initialProps) => {
 		})
 	}
 )
-// @visualizeRender
 export default class VerticalEvent extends Component {
 	onMouseDown = e => {
 		var isHandle = e.target.className.includes('left-handle') ||
@@ -87,11 +86,26 @@ export default class VerticalEvent extends Component {
 				}
 				<div data-eventid={id} className="cal-event" style={eventStyle} onMouseDown={this.onMouseDown} onTouchStart={this.onTouchStart}>
 					<div onClick={this.dragHeadStart} className="left-handle" style={{...dragHandle, top: 0}}></div>
-						<div className="event-body">
-							{<span>{name}</span>}
-						</div>
+						<EventBody name={name} />
 					<div onClick={this.dragTailStart} className="right-handle" style={{...dragHandle, positon: 'absolute', bottom: 0}}></div>
 				</div>
+			</div>
+		);
+	}
+}
+
+@visualizeRender
+class EventBody extends Component {
+	render() {
+		var style = {
+			flex: 1,
+			justifyContent: 'center',
+			alignItems: 'center',
+			display: 'flex'
+		};
+		return (
+			<div className="event-body" style={style}>
+				{<span>{this.props.name}</span>}
 			</div>
 		);
 	}

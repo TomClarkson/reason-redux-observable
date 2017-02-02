@@ -17,7 +17,7 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import 'rxjs/add/observable/dom/ajax';
 
-class App extends Component {
+export default class MultipleClick extends Component {
 	state = {
 		numberOfClicks: 0
 	};
@@ -37,8 +37,6 @@ class App extends Component {
 		);
 	}
 }
-
-render(<App />, document.querySelector('#root'));
 
 
 

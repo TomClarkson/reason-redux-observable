@@ -1,55 +1,51 @@
-import './verticalCalendar/Root';
-// import './autocomplete';
-// import './mousesUntilRelease';
-// import './dragdrop';
+// import './tutorial';
 // import './understandSubscriptions';
-// import './multipleclick';
-// import React from 'react';
-// import { render } from 'react-dom';
 
-// import { createStore, applyMiddleware } from 'redux';
-// import tomCreateEpicMiddleware from './tomCreateEpicMiddleware';
-// import 'rxjs/add/operator/delay';
-// import 'rxjs/add/operator/mapTo';
+import React from 'react';
+import { render } from 'react-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom';
+import Autocomplete from './Autocomplete';
+import MovesUntilReleaseDrag from './MovesUntilReleaseDrag';
+import MultipleClick from './MultipleClick';
+import DragDrop from './DragDrop';
+import PrototypeVerticalCalendar from './verticalCalendar/Root';
 
-// const pingEpic = action$ =>
-// 	action$.filter(action => action.type === 'PING')
-// 		.delay(1000) // Asynchronously wait 1000ms then continue
-// 		.mapTo({ type: 'PONG' });
 
-// const pingReducer = (state = { isPinging: false }, action) => {
-// 	switch (action.type) {
-// 		case 'PING':
-// 			return { isPinging: true };
+const RouterContainer = () => (
+  <Router>
+    <div>
+      <ul style={{display: 'flex', listStyle: 'none', width: window.innerWidth, justifyContent: 'space-around'}}>
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/dragdrop">Drag Drop</Link></li>
+        <li><Link to="/autocomplete">Autocomplete</Link></li>
+        <li><Link to="/movesuntilreleasedrag">Moves until release drag</Link></li>
+        <li><Link to="/multipleclick">Multiple click</Link></li>
+        <li><Link to="/verticalcalendar">Prototype Vertical Calendar</Link></li>
+      </ul>
 
-// 		case 'PONG':
-// 			return { isPinging: false };
+      <hr/>
 
-// 		default:
-// 			return state;
-// 	}
-// };
+      <Route exact path="/" component={Home}/>
+      <Route path="/dragdrop" component={DragDrop}/>
+      <Route path="/autocomplete" component={Autocomplete}/>
+      <Route path="/movesuntilreleasedrag" component={MovesUntilReleaseDrag}/>
+      <Route path="/multipleclick" component={MultipleClick}/>
+      <Route path="/verticalcalendar" component={PrototypeVerticalCalendar}/>
+    </div>
+  </Router>
+)
 
-// const tomEpicMiddleware = tomCreateEpicMiddleware(pingEpic);
+const Home = () => (
+  <div>
+    <h2>Welcome to the RXJS demos.</h2>
+    <p>whatIsEpic.js Shows subjects and epics as just a function</p>
+    <p>tutorial.js Shows the Ping example</p>
 
-// const store = createStore(pingReducer,
-// 	applyMiddleware(
-// 		tomEpicMiddleware
-// 	)
-// );
+  </div>
+)
 
-// const renderApp = () => {
-// 	const { isPinging } = store.getState();
-
-// 	const app = (
-// 		<div>
-// 			<h1>is pinging: {String(isPinging)}</h1>
-// 			<button onClick={() => store.dispatch({type: 'PING'})}>Start Ping</button>
-// 		</div>
-// 	);
-
-// 	render(app, document.querySelector('#root'));
-// };
-
-// store.subscribe(renderApp);
-// renderApp();
+render(<RouterContainer />, document.querySelector('#root'));

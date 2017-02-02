@@ -15,6 +15,8 @@ import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/distinctUntilChanged';
 
 Observable.interval(200)
+	// .take(5)
+	// .takeUntil(Observable.timer(500))
 	.subscribe(e => {
 		console.log('next', e);
 	});

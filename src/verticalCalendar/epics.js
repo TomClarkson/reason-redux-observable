@@ -173,27 +173,6 @@ var dragEpic = (action$, {movesUntilRelease, getCalendarCoordinates}) => {
                     top: top + (e.pageY - startPageY),               
                 }))
                 .map(({left, top}) => {
-
-                    var passedLeftBound = jobsTodoContainerBoundingRect.right > left;
-                    if(passedLeftBound) {
-                        left = jobsTodoContainerBoundingRect.right;
-                    }
-
-                    var passedRightBound = (left + width) > containerElementBoundingRect.right;
-                    if(passedRightBound) {
-                        left = containerElementBoundingRect.right - width;
-                    }
-
-                    var passedTopBound = 0 > top;
-                    if(passedTopBound) {
-                        top = 0;
-                    }
-
-                    var passedBottomBound = (top + height) > containerElementBoundingRect.height;
-                    if(passedBottomBound) {
-                        top = containerElementBoundingRect.height - height;
-                    }
-
                     return {
                         type: 'MOVE_VERTICAL_EVENT',
                         id: calendarEvent.id,

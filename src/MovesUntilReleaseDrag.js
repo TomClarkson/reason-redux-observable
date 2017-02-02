@@ -54,15 +54,10 @@ var movesUntilRelease = ({preventDefault = true} = {}) => {
     };
 }
 
-// show subscription declarative/imperative unsubscribe
-
-// make a subject as a hack!
-
-class App extends Component {
+export default class MovesUntilReleaseDrag extends Component {
 	state = {
-		top: 100,
-		left: 100,
-		numberOfClicks: 0
+		top: 200,
+		left: 200,
 	};
 	handleDrag = (pointerDown, { initialTop, initialLeft }) => {
 
@@ -132,12 +127,9 @@ class App extends Component {
 			<div>
 				<h1>Moves until release</h1>
 				<div onMouseDown={this.onMouseDown} onTouchStart={this.onTouchStart} style={style}>
-					<h3>Drag me	</h3>
-					<p>Last number of clicks {numberOfClicks}</p>
+					<h3>Drag me</h3>
 				</div>
 			</div>
 		);
 	}
 }
-
-render(<App />, document.querySelector('#root'));

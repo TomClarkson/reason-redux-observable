@@ -19,7 +19,7 @@ import 'rxjs/add/observable/dom/ajax';
 
 var initialSearch = 'seapike';
 
-class App extends Component {
+export default class Autocomplete extends Component {
 	state = {
 		loading: false,
 		users: [],
@@ -88,8 +88,6 @@ class App extends Component {
 		);
 	}
 }
-
-render(<App />, document.querySelector('#root'));
 
 
 
